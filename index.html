@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Slayer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/eefc475d98.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Monster Slayer</h1>
+    </header>
+    <div id="game" class="game">
+      <div class="audioControl">
+        <i
+          @click="audioControl"
+          v-if="!isMute"
+          class="audioOn fa-solid fa-volume-high"
+        ></i>
+        <i
+          @click="audioControl"
+          v-else
+          class="audioOff fa-solid fa-volume-xmark"
+        ></i>
+      </div>
+      <section class="characters">
+        <div class="player">
+          <div class="playerImgContainer">
+            <img
+              class="img playerImg"
+              :class="{animatePlayer: playerIsAnimated, specialAttackAnimate:specialAttackIsAnimated, getHit:playerIsHit}"
+              :src="playerImgSrc"
+              alt="player"
+            />
+            <img
+              class="img healingEffect"
+              :class="{healingAnimate:healingIsAnimated}"
+              src="./pics/healingEffect.png"
+              alt="healingEffect"
+            />
+          </div>
+          <div class="container healthbar-container">
+            <h2>Your Health: {{playerHealth}}</h2>
+            <div class="healthbar">
+              <div class="healthbar-value" :style="playerBarStyles"></div>
+            </div>
+          </div>
+        </div>
+        <div class="monster">
+          <div class="monsterImgContainer">
+            <img
+              class="img monsterImg"
+              :class="{animateMonster:monsterIsAnimated,getHit:monsterIsHit}"
+              :src="monsterImgSrc"
+              alt="monster"
+            />
+          </div>
+          <div class="container healthbar-container">
+            <h2>Monster Health: {{monsterHealth}}</h2>
+            <div class="healthbar">
+              <div class="healthbar-value" :style="monsterBarStyles"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="gameOver container" v-if="winner">
+        <h2>Game Over!</h2>
+        <h3 v-if="winner === 'monster'">You lost!</h3>
+        <h3 v-else-if="winner === 'player'">You won!</h3>
+        <h3 v-else>It's a draw!</h3>
+        <button @click="startGame">Start a New Game</button>
+      </section>
+      <section id="controls" v-else>
+        <button @click="attackMonster">ATTACK</button>
+        <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">
+          SPECIAL ATTACK
+        </button>
+        <button @click="healPlayer">HEAL</button>
+        <button @click="surrender">SURRENDER</button>
+      </section>
+      <section id="log" class="container">
+        <h2>Battle Log</h2>
+        <ul>
+          <li v-for="logMessage in logMessages">
+            <span
+              :class="{'log--player':logMessage.actionBy === 'player', 'log--monster': logMessage.actionBy === 'monster'}"
+              >{{logMessage.actionBy === 'player' ? 'Player' : 'Monster'}}</span
+            >
+            <span v-if="logMessage.actionType === 'heal'">
+              heals himself for
+              <span class="log--heal">{{logMessage.actionValue}}</span></span
+            >
+            <span v-else>
+              attacks and deals
+              <span class="log--damage">{{logMessage.actionValue}}</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <audio class="playerAttackAudio" src="./audio/playerAttack.mp3"></audio>
+    <audio class="monsterAttackAudio" src="./audio/monsterAttack.mp3"></audio>
+    <audio class="specialAttackAudio" src="./audio/specialAttack.mp3"></audio>
+    <audio class="healingAudio" src="./audio/healing.mp3"></audio>
+  </body>
+</html>

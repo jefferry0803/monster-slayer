@@ -1,0 +1,245 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Jost", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 0.5rem;
+  background-color: #880017;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+section {
+  width: 90%;
+  max-width: 60rem;
+  margin: auto;
+}
+
+.game {
+  position: relative;
+}
+
+.audioControl {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.audioOn,
+.audioOff {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.characters {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.player,
+.monster {
+  width: 100%;
+}
+
+.playerImgContainer,
+.monsterImgContainer {
+  width: 100%;
+}
+
+.playerImgContainer {
+  position: relative;
+}
+
+.getHit {
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg)
+    saturate(400%) contrast(0.8);
+}
+
+.healingEffect {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.img {
+  width: 100%;
+}
+
+.animatePlayer {
+  animation: playerAnimation 0.5s linear;
+}
+
+.animateMonster {
+  animation: monsterAnimation 0.5s linear;
+}
+
+.specialAttackAnimate {
+  animation: specialAttackAnimation 0.5s linear;
+}
+
+.healingAnimate {
+  animation: healingAnimation 1s ease-in-out;
+}
+
+.healthbar-container {
+  width: 90%;
+}
+
+.healthbar {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #575757;
+  margin: 1rem 0;
+  background: #fde5e5;
+}
+
+.healthbar-value {
+  background-color: #00a876;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  text-align: center;
+  padding: 0.5rem;
+  margin: 1rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+}
+
+.healthbar-container h2 {
+  margin: 0.25rem;
+}
+
+#controls {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  font: inherit;
+  border: 1px solid #88005b;
+  background-color: #88005b;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin: 1rem;
+  width: 12rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover,
+button:active {
+  background-color: #af0a78;
+  border-color: #af0a78;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+}
+
+button:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  box-shadow: none;
+  color: #3f3f3f;
+  cursor: not-allowed;
+}
+
+#log ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#log li {
+  margin: 0.5rem 0;
+}
+
+.log--player {
+  color: #7700ff;
+}
+
+.log--monster {
+  color: #da8d00;
+}
+
+.log--damage {
+  color: red;
+}
+
+.log--heal {
+  color: green;
+}
+
+@keyframes playerAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes monsterAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes specialAttackAnimation {
+  0% {
+    transform: rotate(0) translate(0);
+  }
+  33% {
+    transform: rotate(-16deg) translate(0, -100px);
+  }
+  66% {
+    transform: rotate(22deg) translate(200px, 50px);
+  }
+  100% {
+    transform: rotate(0) translate(0);
+  }
+}
+
+@keyframes healingAnimation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
